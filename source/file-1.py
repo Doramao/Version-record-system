@@ -7,6 +7,8 @@ source = ['./ceshi']
 
 # the backup must be stored up into a zip file
 target_dir = './backup'
+# the log file name
+log_file='./backlog.txt'
 
 if not os.path.exists(target_dir):
     os.mkdir(target_dir)
@@ -27,8 +29,12 @@ if not os.path.exists(today):
 
 zip_cmd = "zip -rq '%s' %s" % (target, ' '.join(source))
 
+# write the log to the logfile
+file=open(log_file,'a+')
+file.write(target+'  '+target_dir+today+'\n')
+file.close()
+
 if os.system(zip_cmd) == 0:
-    print
-    'Successful backup to ', target
+    print('Successful backup to ', target)
 else:
     print('Backup Failed' )
